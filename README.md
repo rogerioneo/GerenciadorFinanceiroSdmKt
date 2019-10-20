@@ -1,9 +1,11 @@
 # GerenciadorFinanceiroSdmKt
-Curso: Especialização em Desenvolvimento de Sistemas para Dispositivos Móveis
+
 Disciplina: Programação de Dispositivos Android 1
+
 Trabalho: Gerenciador Financeiro
 
 ## Conteúdo
+
 > O trabalho aqui descrito constitui parte fundamental do conceito desta disciplina e consiste na implementação de uma aplicação móvel cujos usuários em potencial são pessoas que buscam manter controle da sua vida financeira pessoal. A ideia é bastante simples: o aplicativo deve manter uma organização de débitos e créditos na(s) conta(s) bancária(s) do usuário.
 
 > O usuário poderá cadastrar diferentes contas usando apenas uma descrição e um saldo inicial. Uma vez cadastradas as contas, o usuário poderá entrar com transações de crédito e débito que modificarão o saldo. Obviamente, crédito deverá somar ao saldo e débito deverá subtrair do saldo.
