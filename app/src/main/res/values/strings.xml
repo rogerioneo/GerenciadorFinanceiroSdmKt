@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Gerenciador Financeiro SDM</string>
+    <string name="splash_titulo">Gerenciador Financeiro</string>
 </resources>
