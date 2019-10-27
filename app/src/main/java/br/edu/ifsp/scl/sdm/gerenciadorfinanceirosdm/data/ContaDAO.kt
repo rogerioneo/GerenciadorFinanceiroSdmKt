@@ -1,9 +1,12 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
+import android.content.ContentValues
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
-import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 
-class ContaDAO(){
+
+class ContaDAO(context: Context){
 
     object ContaEntry : BaseColumns {
         const val TABLE_NAME = "conta"
