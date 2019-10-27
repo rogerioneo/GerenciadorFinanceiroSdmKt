@@ -28,9 +28,9 @@ class ContaDAO(context: Context){
                     "${ContaEntry.COLUMN_SALDO_FINAL} DOUBLE)"
     }
 
-    fun incluirConta(conta: Conta){
+    fun incluir(conta: Conta){
         val database = dbhelper.writableDatabase
-        val values: ContentValues = ContentValues()
+        val values = ContentValues()
         values.put(ContaEntry.COLUMN_DESCRICAO, conta.descricao)
         values.put(ContaEntry.COLUMN_SALDO_INICIAL, conta.saldoInicial)
         values.put(ContaEntry.COLUMN_SALDO_FINAL, conta.saldoFinal)
@@ -40,7 +40,7 @@ class ContaDAO(context: Context){
 
     fun alterarDescricao(conta: Conta){
         val database = dbhelper.writableDatabase
-        val values: ContentValues = ContentValues()
+        val values = ContentValues()
         values.put(ContaEntry.COLUMN_DESCRICAO, conta.descricao)
         database.update(ContaEntry.TABLE_NAME, values,
                 ContaEntry.COLUMN_ID + "=?",
@@ -50,10 +50,10 @@ class ContaDAO(context: Context){
 
     fun alterarSaldo(conta: Conta){
         val database = dbhelper.writableDatabase
-        val values: ContentValues = ContentValues()
+        val values = ContentValues()
         values.put(ContaEntry.COLUMN_SALDO_FINAL, conta.saldoFinal)
         database.update(ContaEntry.TABLE_NAME, values,
-            ContaEntry.COLUMN_ID + "=?",
+            "${ContaEntry.COLUMN_ID}=?",
             arrayOf(conta.id.toString()))
         database.close()
     }

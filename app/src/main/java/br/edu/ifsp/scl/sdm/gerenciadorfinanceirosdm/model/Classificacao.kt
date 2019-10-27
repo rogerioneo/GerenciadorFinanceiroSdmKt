@@ -1,3 +1,4 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model
 
-class Classificacao(nome: String)
+class Classificacao(val id: Int,
+                    var nome: String)

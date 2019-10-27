@@ -6,13 +6,14 @@ import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Tipo
 import java.sql.Timestamp
 
 class Transacao(
-        tipo: Tipo,
-        operacao: Operacao,
-        classificacao: Classificacao,
-        descricao: String,
-        dataHora: Timestamp,
-        valor: Double,
-        status: Status,
-        erro: String){
-
-}
+        val id: Int,
+        val contaSacado: Conta,
+        val contaRecebedor: Conta? = null,
+        val tipo: Tipo,
+        val operacao: Operacao,
+        val classificacao: Classificacao,
+        val descricao: String,
+        var dataHora: Timestamp,
+        val valor: Double,
+        var status: Status,
+        var erro: String)
