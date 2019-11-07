@@ -1,9 +1,13 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model
 
-class Conta (val id: Int,
-             var descricao: String,
-             val saldoInicial: Double,
-             var saldoFinal: Double = saldoInicial) {
+import java.io.Serializable
+
+class Conta(
+    var id: Int,
+    var descricao: String,
+    val saldoInicial: Double,
+    var saldoFinal: Double = saldoInicial) :
+    Serializable {
     fun somarAoSaldo(valor: Double) {
         this.saldoFinal += valor
     }

@@ -2,8 +2,10 @@ package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.provider.BaseColumns
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
+import java.util.ArrayList
 
 
 class ContaDAO(context: Context){
@@ -28,14 +30,40 @@ class ContaDAO(context: Context){
                     "${ContaEntry.COLUMN_SALDO_FINAL} DOUBLE)"
     }
 
-    fun incluir(conta: Conta){
+
+    fun listaContas(): List<Conta> {
+        val database = dbhelper.readableDatabase
+        val contas = ArrayList<Conta>()
+
+        val cursor: Cursor
+
+        cursor = database.query(
+            ContaEntry.TABLE_NAME,
+            null, null, null, null, null,
+            ContaEntry.COLUMN_DESCRICAO
+        )
+        while (cursor.moveToNext()) {
+            val conta = Conta(cursor.getInt(cursor.getColumnIndex(ContaEntry.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(ContaEntry.COLUMN_DESCRICAO)),
+                cursor.getDouble(cursor.getColumnIndex(ContaEntry.COLUMN_SALDO_INICIAL)))
+            contas.add(conta)
+        }
+
+        cursor.close()
+        database.close()
+
+        return contas
+    }
+
+    fun incluir(conta: Conta):Int{
         val database = dbhelper.writableDatabase
         val values = ContentValues()
         values.put(ContaEntry.COLUMN_DESCRICAO, conta.descricao)
         values.put(ContaEntry.COLUMN_SALDO_INICIAL, conta.saldoInicial)
         values.put(ContaEntry.COLUMN_SALDO_FINAL, conta.saldoFinal)
-        database.insert(ContaEntry.TABLE_NAME, null, values)
+        val id = database.insert(ContaEntry.TABLE_NAME, null, values)
         database.close()
+        return id.toInt()
     }
 
     fun alterarDescricao(conta: Conta){
