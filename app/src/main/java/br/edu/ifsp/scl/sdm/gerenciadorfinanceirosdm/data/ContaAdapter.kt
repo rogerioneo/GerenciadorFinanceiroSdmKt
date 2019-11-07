@@ -1,7 +1,6 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
