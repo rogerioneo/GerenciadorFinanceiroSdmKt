@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.NovaContaFragment"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/label_abertura"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/texto_de_abertura"
+        android:textColor="@color/textWhite"
+        android:textSize="45dp"
+        android:fontFamily="serif"
+        android:layout_marginBottom="80dp"
+        />
+
+    <Button
+        android:id="@+id/nova_conta_btn"
+
+        android:text="Criar Conta"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="cadastrarConta"
+        />
+
+</FrameLayout>

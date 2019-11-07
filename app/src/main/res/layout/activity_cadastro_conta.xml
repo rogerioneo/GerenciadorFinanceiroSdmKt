@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/colorPrimary"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastro de contas"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="55dp"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:elevation="@dimen/cardview_compat_inset_shadow"
+        android:fontFamily="serif"
+        android:textColor="@color/textWhite"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Descrição"
+        android:textColor="@color/textWhite"/>
+
+    <EditText
+        android:id="@+id/editTextDescricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textWhite"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Saldo inicial"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/textWhite"/>
+
+    <EditText
+        android:id="@+id/editTextSaldoInicial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:textColor="@color/textWhite"/>
+
+    <Button
+        android:id="@+id/nova_conta_btn"
+        android:text="Salvar"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_gravity="right"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonshape"
+        android:layout_marginTop="50dp"
+        android:onClick="incluirConta"
+        />
+
+</LinearLayout>
