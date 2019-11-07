@@ -1,6 +1,8 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ class ContaAdapter(private val contas: List<Conta>,
         val conta = contas[position]
         holder.let {
             it.descricao.text = conta.descricao
+            it.saldo.text = String.format("%2f",conta.saldoFinal)
         }
     }
 
@@ -30,8 +33,13 @@ class ContaAdapter(private val contas: List<Conta>,
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val descricao = itemView.descricao_conta
+        val saldo = itemView.saldo
         fun bindView(conta: Conta) {
             descricao.text = conta.descricao
+            if (conta.saldoFinal < 0)
+                saldo.setTextColor(Color.RED)
+            else saldo.setTextColor(Color.BLUE)
+            saldo.text = String.format("%2f",conta.saldoFinal)
         }
     }
 }

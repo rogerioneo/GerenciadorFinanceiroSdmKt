@@ -6,4 +6,6 @@
     <color name="backgrounPrimary">#FF5733</color>
     <color name="textWhite">#FFF</color>
     <color name="textBlack">#000</color>
+    <color name="saldo_positivo">#0000FF</color>
+    <color name="saldo_negativo">#FF0000</color>
 </resources>
