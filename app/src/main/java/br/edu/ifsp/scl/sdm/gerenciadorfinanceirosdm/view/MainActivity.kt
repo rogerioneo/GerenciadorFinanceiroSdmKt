@@ -1,11 +1,13 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.R
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data.ContaDAO
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 import android.util.Log
+import android.view.View
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,5 +31,10 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.frame_conta, ContaFragment(contas))
                 .commit()
         }
+    }
+
+    fun cadastrarConta(view: View) {
+        val intent = Intent(this, CadastraConta::class.java)
+        startActivityForResult(intent,1)
     }
 }

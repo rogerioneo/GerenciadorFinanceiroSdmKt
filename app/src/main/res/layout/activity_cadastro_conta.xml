@@ -49,7 +49,7 @@
         android:textColor="@color/textWhite"/>
 
     <Button
-        android:id="@+id/nova_conta_btn"
+        android:id="@+id/salva_conta_btn"
         android:text="Salvar"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
@@ -58,7 +58,7 @@
         android:layout_height="40dp"
         android:background="@drawable/buttonshape"
         android:layout_marginTop="50dp"
-        android:onClick="incluirConta"
+        android:onClick="btnSaveClick"
         />
 
 </LinearLayout>

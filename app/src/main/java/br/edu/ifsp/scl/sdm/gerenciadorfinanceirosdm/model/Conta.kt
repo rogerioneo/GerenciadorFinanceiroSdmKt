@@ -5,7 +5,7 @@ import java.io.Serializable
 class Conta(
     var id: Int,
     var descricao: String,
-    val saldoInicial: Double,
+    var saldoInicial: Double,
     var saldoFinal: Double = saldoInicial) :
     Serializable {
     fun somarAoSaldo(valor: Double) {

@@ -17,7 +17,7 @@ class ContaAdapter(private val contas: List<Conta>,
         val conta = contas[position]
         holder.let {
             it.descricao.text = conta.descricao
-            it.saldo.text = String.format("%2f",conta.saldoFinal)
+            it.saldo.text = String.format("%.2f",conta.saldoFinal)
         }
     }
 
@@ -38,7 +38,7 @@ class ContaAdapter(private val contas: List<Conta>,
             if (conta.saldoFinal < 0)
                 saldo.setTextColor(Color.RED)
             else saldo.setTextColor(Color.BLUE)
-            saldo.text = String.format("%2f",conta.saldoFinal)
+            saldo.text = String.format("%.2f",conta.saldoFinal)
         }
     }
 }

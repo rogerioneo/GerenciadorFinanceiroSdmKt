@@ -25,11 +25,4 @@ class NovaContaFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nova_conta, container, false)
     }
-
-    fun cadastrarConta(view: View) {
-        val conta: Conta = Conta(1, "Rogério", 5000.00)
-        val intent = Intent(context, CadastraConta::class.java)
-        intent.putExtra("conta", conta)
-        startActivityForResult(intent,1)
-    }
 }

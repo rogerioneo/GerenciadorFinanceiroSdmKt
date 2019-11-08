@@ -76,6 +76,16 @@ class ContaDAO(context: Context){
         database.close()
     }
 
+    fun alterarSaldoInicial(conta: Conta){
+        val database = dbhelper.writableDatabase
+        val values = ContentValues()
+        values.put(ContaEntry.COLUMN_SALDO_INICIAL, conta.saldoInicial)
+        database.update(ContaEntry.TABLE_NAME, values,
+            "${ContaEntry.COLUMN_ID}=?",
+            arrayOf(conta.id.toString()))
+        database.close()
+    }
+
     fun alterarSaldo(conta: Conta){
         val database = dbhelper.writableDatabase
         val values = ContentValues()
