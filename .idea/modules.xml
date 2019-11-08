@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Gerenciador Financeiro SDM.iml" filepath="$PROJECT_DIR$/Gerenciador Financeiro SDM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GerenciadorFinanceiroSdmKt-Gerenciador Financeiro SDM.iml" filepath="$PROJECT_DIR$/GerenciadorFinanceiroSdmKt-Gerenciador Financeiro SDM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/GerenciadorFinanceiroSdmKt-app.iml" filepath="$PROJECT_DIR$/app/GerenciadorFinanceiroSdmKt-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

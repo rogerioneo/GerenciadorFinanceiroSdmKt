@@ -2,6 +2,7 @@ package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.provider.BaseColumns
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 
@@ -57,5 +58,33 @@ class ContaDAO(context: Context){
             arrayOf(conta.id.toString()))
         database.close()
     }
+/*
+    fun listaContatos(): List<Conta> {
+        val database = dbhelper.writableDatabase
+
+       val contas: MutableList()
+
+        val cursor: Cursor
+
+        cursor = database.query(
+            ContaEntry.TABLE_NAME,
+            null, null, null, null, null,
+            ContaEntry.COLUMN_DESCRICAO
+        )
+
+        while (cursor.moveToNext()) {
+            val c = Conta()
+
+
+            contas.add(c)
+        }
+
+        cursor.close()
+        database.close()
+
+        return contas
+    }
+
+ */
 }
 
