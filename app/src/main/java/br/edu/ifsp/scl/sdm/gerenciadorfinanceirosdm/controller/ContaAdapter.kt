@@ -1,4 +1,4 @@
-package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
+package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.controller
 
 import android.content.Context
 import android.graphics.Color
@@ -11,28 +11,33 @@ import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 import kotlinx.android.synthetic.main.conta_celula.view.*
 
 class ContaAdapter(private val contas: List<Conta>,
-                   private val context: Context?): RecyclerView.Adapter<ContaAdapter.ViewHolder>(){
+                   private val context: Context?): RecyclerView.Adapter<ContaAdapter.ContaViewHolder>(){
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    private var clickListener: ItemClickListener? = null
+
+    override fun onBindViewHolder(holder: ContaViewHolder, position: Int) {
         val conta = contas[position]
-        holder.let {
-            it.descricao.text = conta.descricao
-            it.saldo.text = String.format("%.2f",conta.saldoFinal)
-        }
+        holder.bindView(conta)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContaViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.conta_celula, parent, false)
-        return ViewHolder(view)
+        return ContaViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return contas.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ContaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         val descricao = itemView.descricao_conta
         val saldo = itemView.saldo
+
         fun bindView(conta: Conta) {
             descricao.text = conta.descricao
             if (conta.saldoFinal < 0)
@@ -40,6 +45,22 @@ class ContaAdapter(private val contas: List<Conta>,
             else saldo.setTextColor(Color.BLUE)
             saldo.text = String.format("%.2f",conta.saldoFinal)
         }
+
+        override fun onClick(view: View) {
+            clickListener?.onItemClick(adapterPosition)
+        }
+    }
+
+    fun getContaList(): List<Conta> {
+        return contas
+    }
+
+    fun setClickListener(itemClickListener: ItemClickListener) {
+        this.clickListener = itemClickListener
+    }
+
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
     }
 }
 

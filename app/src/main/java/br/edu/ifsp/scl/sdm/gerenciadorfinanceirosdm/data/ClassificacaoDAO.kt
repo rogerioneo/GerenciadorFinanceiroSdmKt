@@ -2,6 +2,7 @@ package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.provider.BaseColumns
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Classificacao
 
@@ -21,6 +22,52 @@ class ClassificacaoDAO(context: Context) {
             "CREATE TABLE ${ClassificacaoEntry.TABLE_NAME} (" +
                     "${ClassificacaoEntry.COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "${ClassificacaoEntry.COLUMN_NOME} TEXT)"
+    }
+
+    fun listaClassificacao(): List<Classificacao> {
+        val database = dbhelper.readableDatabase
+        val classificacaoList = ArrayList<Classificacao>()
+
+        val cursor: Cursor
+
+        cursor = database.query(
+            ClassificacaoEntry.TABLE_NAME,
+            null, null, null, null, null,
+            ClassificacaoEntry.COLUMN_NOME
+        )
+        while (cursor.moveToNext()) {
+            val classificacao = Classificacao(cursor.getInt(cursor.getColumnIndex(ClassificacaoEntry.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(ClassificacaoEntry.COLUMN_NOME)))
+            classificacaoList.add(classificacao)
+        }
+
+        cursor.close()
+        database.close()
+
+        return classificacaoList
+    }
+
+    fun getClassificacao(id: Int): Classificacao? {
+        val database = dbhelper.readableDatabase
+        var classificacao: Classificacao? = null
+
+        val cursor: Cursor
+
+        cursor = database.query(
+            ClassificacaoEntry.TABLE_NAME,
+            null,
+            "where ("+ClassificacaoEntry.COLUMN_ID+"="+id+")",
+            null, null, null,null
+        )
+        if (cursor.count > 0) {
+            classificacao = Classificacao(cursor.getInt(cursor.getColumnIndex(ClassificacaoEntry.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(ClassificacaoEntry.COLUMN_NOME)))
+        }
+
+        cursor.close()
+        database.close()
+
+        return classificacao
     }
 
     fun incluir(classificacao: Classificacao){

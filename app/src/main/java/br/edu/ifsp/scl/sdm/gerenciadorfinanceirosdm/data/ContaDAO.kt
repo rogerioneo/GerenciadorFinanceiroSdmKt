@@ -55,6 +55,30 @@ class ContaDAO(context: Context){
         return contas
     }
 
+    fun getConta(id: Int): Conta? {
+        val database = dbhelper.readableDatabase
+        var conta: Conta? = null
+
+        val cursor: Cursor
+
+        cursor = database.query(
+            ContaEntry.TABLE_NAME,
+            null,
+            "where ("+ContaEntry.COLUMN_ID+"="+id+")",
+            null, null, null,null
+        )
+        if (cursor.count > 0) {
+            conta = Conta(cursor.getInt(cursor.getColumnIndex(ContaEntry.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(ContaEntry.COLUMN_DESCRICAO)),
+                cursor.getDouble(cursor.getColumnIndex(ContaEntry.COLUMN_SALDO_INICIAL)))
+        }
+
+        cursor.close()
+        database.close()
+
+        return conta
+    }
+
     fun incluir(conta: Conta):Int{
         val database = dbhelper.writableDatabase
         val values = ContentValues()

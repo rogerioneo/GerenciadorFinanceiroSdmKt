@@ -2,12 +2,22 @@ package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.provider.BaseColumns
+import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Classificacao
+import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Transacao
+import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Operacao
+import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Status
+import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Tipo
+import java.sql.Timestamp
+import java.util.ArrayList
 
 class TransacaoDAO(context: Context) {
 
     private val dbhelper: SQLiteHelper = SQLiteHelper(context)
+    private val contaDAO: ContaDAO = ContaDAO(context)
+    private val classificacaoDAO: ClassificacaoDAO = ClassificacaoDAO(context)
 
     object TransacaoEntry : BaseColumns {
         const val TABLE_NAME = "transacao"
@@ -45,6 +55,54 @@ class TransacaoDAO(context: Context) {
                     "   REFERENCES ${ContaDAO.ContaEntry.TABLE_NAME}(${BaseColumns._ID}), " +
                     "FOREIGN KEY(${TransacaoEntry.COLUMN_CLASSIFICACAO}) " +
                     "   REFERENCES ${ClassificacaoDAO.ClassificacaoEntry.TABLE_NAME}(${BaseColumns._ID}))"
+    }
+
+    fun listaTransacoes(): List<Transacao> {
+        val database = dbhelper.readableDatabase
+        val transacoes = ArrayList<Transacao>()
+
+        val cursor: Cursor
+
+        cursor = database.query(
+            TransacaoEntry.TABLE_NAME,
+            null, null, null, null, null,
+            TransacaoEntry.COLUMN_DESCRICAO
+        )
+
+        while (cursor.moveToNext()) {
+
+            val contaIn = contaDAO.getConta(
+                    cursor.getInt(cursor.getColumnIndex(
+                        TransacaoEntry.COLUMN_CTA_REALIZA)))
+
+            val contaOut = contaDAO.getConta(
+                cursor.getInt(cursor.getColumnIndex(
+                    TransacaoEntry.COLUMN_CTA_RECEBE)))
+
+            val classificacao = classificacaoDAO.getClassificacao(
+                cursor.getInt(cursor.getColumnIndex(
+                    TransacaoEntry.COLUMN_CLASSIFICACAO)))
+
+            val transacao = Transacao(
+                cursor.getInt(cursor.getColumnIndex(TransacaoEntry.COLUMN_ID)),
+                contaIn!!,
+                contaOut!!,
+                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_TIPO)) as Tipo,
+                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_OPERACAO)) as Operacao,
+                classificacao!!,
+                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_DESCRICAO)),
+                cursor.getDouble(cursor.getColumnIndex(TransacaoEntry.COLUMN_DATA_HORA)) as Timestamp,
+                cursor.getDouble(cursor.getColumnIndex(TransacaoEntry.COLUMN_VALOR)),
+                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_STATUS)) as Status,
+                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_ERRO))
+            )
+            transacoes.add(transacao)
+        }
+
+        cursor.close()
+        database.close()
+
+        return transacoes
     }
 
     fun incluir(transacao: Transacao){

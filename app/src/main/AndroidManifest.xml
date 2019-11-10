@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_gf"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.NovaContaFragment"></activity>
+        <activity android:name=".view.TransacaoActivity"></activity>
+        <activity android:name=".view.NovaContaFragment" />
         <activity android:name=".view.CadastraConta" />
         <activity android:name=".view.ContaFragment" />
         <activity android:name=".view.MainActivity" />
