@@ -31,7 +31,7 @@ class ContaDAO(context: Context){
     }
 
 
-    fun listaContas(): List<Conta> {
+    fun listaContas(): ArrayList<Conta> {
         val database = dbhelper.readableDatabase
         val contas = ArrayList<Conta>()
 
@@ -86,6 +86,14 @@ class ContaDAO(context: Context){
         values.put(ContaEntry.COLUMN_SALDO_INICIAL, conta.saldoInicial)
         values.put(ContaEntry.COLUMN_SALDO_FINAL, conta.saldoFinal)
         val id = database.insert(ContaEntry.TABLE_NAME, null, values)
+        database.close()
+        return id.toInt()
+    }
+
+    fun excluir(conta: Conta):Int{
+        val database = dbhelper.writableDatabase
+        val id = database.delete(ContaEntry.TABLE_NAME,
+            ContaEntry.COLUMN_ID + "=" + conta.id, null)
         database.close()
         return id.toInt()
     }

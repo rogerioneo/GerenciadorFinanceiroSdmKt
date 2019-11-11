@@ -40,8 +40,8 @@ class CadastraConta() : AppCompatActivity() {
             conta?.saldoInicial = saldoInicial.text.toString().toDouble()
             alterarConta(this.conta!!)
         }
-        val intent: Intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        setResult(RESULT_OK)
+        this.onBackPressed()
     }
 
     fun incluirConta(conta: Conta) {

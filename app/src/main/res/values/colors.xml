@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#FF5733</color>
     <color name="colorPrimaryDark">#FF5733</color>
-    <color name="colorAccent">#FF5733</color>
-    <color name="backgrounPrimary">#FF5733</color>
+    <color name="colorAccent">#FFF</color>
+    <color name="backgroundPrimary">#FF5733</color>
+    <color name="backgroundDelete">#CCC</color>
     <color name="textWhite">#FFF</color>
     <color name="textBlack">#000</color>
     <color name="saldo_positivo">#0000FF</color>

@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.R
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 import kotlinx.android.synthetic.main.conta_celula.view.*
+import java.util.ArrayList
 
-class ContaAdapter(private val contas: List<Conta>,
+class ContaAdapter(private val contas: ArrayList<Conta>,
                    private val context: Context?): RecyclerView.Adapter<ContaAdapter.ContaViewHolder>(){
 
     private var clickListener: ItemClickListener? = null
@@ -53,6 +54,13 @@ class ContaAdapter(private val contas: List<Conta>,
 
     fun getContaList(): List<Conta> {
         return contas
+    }
+
+    fun apagarConta(conta: Conta): Int {
+        val pos = contas.indexOf(conta)
+        contas.removeAt(pos)
+        notifyItemRemoved(pos)
+        return contas.count()
     }
 
     fun setClickListener(itemClickListener: ItemClickListener) {

@@ -8,19 +8,24 @@ import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data.ContaDAO
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 import android.util.Log
 import android.view.View
+import java.util.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
+
+    object Constantes{
+        val CADASTRA_CONTA_REQUEST_CODE = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val contaDao: ContaDAO = ContaDAO(applicationContext)
-        val contas: List<Conta> = contaDao.listaContas()
+        val contas: ArrayList<Conta> = contaDao.listaContas()
         atualizaView(contas)
     }
 
-    private fun atualizaView(contas: List<Conta>){
+    fun atualizaView(contas: ArrayList<Conta>){
         if (contas.size == 0) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_conta, NovaContaFragment())
@@ -28,13 +33,24 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.frame_conta, ContaFragment(contas))
+                .replace(R.id.frame_conta, ContaFragment(this, contas))
                 .commit()
         }
     }
 
     fun cadastrarConta(view: View) {
         val intent = Intent(this, CadastraConta::class.java)
-        startActivityForResult(intent,1)
+        startActivityForResult(intent, Constantes.CADASTRA_CONTA_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constantes.CADASTRA_CONTA_REQUEST_CODE &&
+            resultCode == AppCompatActivity.RESULT_OK){
+            val contaDao: ContaDAO = ContaDAO(applicationContext)
+            val contas: ArrayList<Conta> = contaDao.listaContas()
+            atualizaView(contas)
+        }
+
     }
 }
