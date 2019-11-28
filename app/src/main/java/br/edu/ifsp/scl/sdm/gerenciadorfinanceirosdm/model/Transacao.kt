@@ -4,6 +4,7 @@ import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Operacao
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Status
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Tipo
 import java.sql.Timestamp
+import java.time.LocalDateTime
 
 class Transacao(
         val id: Int,
@@ -16,4 +17,4 @@ class Transacao(
         var dataHora: Timestamp,
         val valor: Double,
         var status: Status,
-        var erro: String)
+        var erro: String = "")

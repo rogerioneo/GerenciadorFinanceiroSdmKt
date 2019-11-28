@@ -7,4 +7,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="operacao">Operação:</string>
+    <string name="transferir_para">Transferir para:</string>
+    <string name="saldo">Saldo</string>
+    <string name="descricao">Descrição</string>
+    <string name="classificacao">Classificação:</string>
 </resources>

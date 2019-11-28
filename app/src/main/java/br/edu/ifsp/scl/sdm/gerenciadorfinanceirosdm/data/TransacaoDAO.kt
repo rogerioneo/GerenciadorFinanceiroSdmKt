@@ -4,8 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.provider.BaseColumns
-import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Classificacao
-import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Transacao
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Operacao
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Status
@@ -57,7 +55,7 @@ class TransacaoDAO(context: Context) {
                     "   REFERENCES ${ClassificacaoDAO.ClassificacaoEntry.TABLE_NAME}(${BaseColumns._ID}))"
     }
 
-    fun listaTransacoes(): List<Transacao> {
+    fun listaTransacoes(): ArrayList<Transacao> {
         val database = dbhelper.readableDatabase
         val transacoes = ArrayList<Transacao>()
 
@@ -94,8 +92,7 @@ class TransacaoDAO(context: Context) {
                 cursor.getDouble(cursor.getColumnIndex(TransacaoEntry.COLUMN_DATA_HORA)) as Timestamp,
                 cursor.getDouble(cursor.getColumnIndex(TransacaoEntry.COLUMN_VALOR)),
                 cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_STATUS)) as Status,
-                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_ERRO))
-            )
+                cursor.getString(cursor.getColumnIndex(TransacaoEntry.COLUMN_ERRO)))
             transacoes.add(transacao)
         }
 
@@ -111,13 +108,13 @@ class TransacaoDAO(context: Context) {
         values.put(TransacaoEntry.COLUMN_CTA_REALIZA, transacao.contaSacado.id)
         if (transacao.contaRecebedor != null)
             values.put(TransacaoEntry.COLUMN_CTA_RECEBE, transacao.contaRecebedor.id)
-        values.put(TransacaoEntry.COLUMN_TIPO, transacao.tipo.text)
-        values.put(TransacaoEntry.COLUMN_OPERACAO, transacao.operacao.text)
-        values.put(TransacaoEntry.COLUMN_CLASSIFICACAO, transacao.classificacao.id)
+        values.put(TransacaoEntry.COLUMN_TIPO, transacao.tipo?.text)
+        values.put(TransacaoEntry.COLUMN_OPERACAO, transacao.operacao?.text)
+        values.put(TransacaoEntry.COLUMN_CLASSIFICACAO, transacao.classificacao?.id)
         values.put(TransacaoEntry.COLUMN_DESCRICAO, transacao.descricao)
         values.put(TransacaoEntry.COLUMN_DATA_HORA, transacao.dataHora.toString())
         values.put(TransacaoEntry.COLUMN_VALOR, transacao.valor)
-        values.put(TransacaoEntry.COLUMN_STATUS, transacao.status.text)
+        values.put(TransacaoEntry.COLUMN_STATUS, transacao.status?.text)
         values.put(TransacaoEntry.COLUMN_ERRO, transacao.erro)
         database.insert(TransacaoEntry.TABLE_NAME, null, values)
         database.close()
@@ -127,7 +124,7 @@ class TransacaoDAO(context: Context) {
         val database = dbhelper.writableDatabase
         val values = ContentValues()
         values.put(TransacaoEntry.COLUMN_DATA_HORA, transacao.dataHora.toString())
-        values.put(TransacaoEntry.COLUMN_STATUS, transacao.status.text)
+        values.put(TransacaoEntry.COLUMN_STATUS, transacao.status?.text)
         values.put(TransacaoEntry.COLUMN_ERRO, transacao.erro)
         database.update(TransacaoEntry.TABLE_NAME,
                         values,

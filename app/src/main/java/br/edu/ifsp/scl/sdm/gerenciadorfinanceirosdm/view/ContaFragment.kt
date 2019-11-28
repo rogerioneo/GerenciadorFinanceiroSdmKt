@@ -1,11 +1,13 @@
 package br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.view
 
+import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -15,7 +17,8 @@ import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.R
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.controller.ContaAdapter
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.data.ContaDAO
 import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.model.Conta
-import java.util.ArrayList
+import br.edu.ifsp.scl.sdm.gerenciadorfinanceirosdm.utils.Fragments
+import java.util.*
 
 
 class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Fragment() {
@@ -32,7 +35,7 @@ class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Frag
     ): View? {
         // Inflate the layout for this fragment
         val rootView = inflater.inflate(R.layout.fragment_conta, container, false)
-        val contaDAO: ContaDAO = ContaDAO(rootView.context)
+        val contaDAO = ContaDAO(rootView.context)
         recyclerView = rootView.findViewById(R.id.contas_list_recyclerview) as RecyclerView // Add this
         recyclerView.layoutManager = LinearLayoutManager(context)
         val adapter =
@@ -41,10 +44,10 @@ class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Frag
 
         adapter.setClickListener(object : ContaAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
-//                val conta = adapter.getContaList().get(position)
-//                val i = Intent(rootView.context, CadastraConta::class.java)
-//                i.putExtra("conta", conta)
-//                startActivityForResult(i, 2)
+                val conta = adapter.getContaList()[position]
+                val intent = Intent(rootView.context, TransacaoFragment::class.java)
+                intent.putExtra("conta", conta)
+                main.updateFragment(TransacaoFragment(main, conta), Fragments.Transacao.tag)
             }
         })
 
@@ -62,7 +65,7 @@ class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Frag
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val c = adapter.getContaList().get(viewHolder.adapterPosition)
+                val c = adapter.getContaList()[viewHolder.adapterPosition]
                 contaDAO.excluir(c)
                 val count = adapter.apagarConta(c)
                 if (count == 0) {
@@ -81,7 +84,7 @@ class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Frag
                 viewHolder: RecyclerView.ViewHolder,
                 dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
             ) {
-                val icon: Bitmap
+                val icon: Bitmap = BitmapFactory.decodeResource(resources, android.R.drawable.ic_delete)
                 val p = Paint()
 
                 val itemView = viewHolder.itemView
@@ -95,12 +98,11 @@ class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Frag
                     itemView.top.toFloat(), dX, itemView.bottom.toFloat()
                 )
                 c.drawRect(background, p)
-                icon = BitmapFactory.decodeResource(resources, android.R.drawable.ic_delete)
-                val icon_dest = RectF(
+                val iconDest = RectF(
                     itemView.left.toFloat() + width, itemView.top.toFloat() + width,
                     itemView.left.toFloat() + 2 * width, itemView.bottom.toFloat() - width
                 )
-                c.drawBitmap(icon, null, icon_dest, null)
+                c.drawBitmap(icon, null, iconDest, null)
                 super.onChildDraw(
                     c,
                     recyclerView,
@@ -117,6 +119,4 @@ class ContaFragment(val main: MainActivity, val contas: ArrayList<Conta>) : Frag
 
         return rootView
     }
-
-
 }

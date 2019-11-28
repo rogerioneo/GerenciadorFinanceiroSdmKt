@@ -17,21 +17,25 @@
         <TextView
             android:id="@+id/classificacao"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:text="Descrição"
+            android:layout_weight="1"
             android:fontFamily="sans-serif-medium"
-            android:textSize="15dp"/>
+            android:gravity="center_vertical"
+            android:paddingStart="5sp"
+            android:paddingEnd="10sp"
+            android:text="@string/descricao"
+            android:textSize="18sp" />
+
         <TextView
             android:id="@+id/valor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
-            android:paddingRight="30dp"
-            android:text="Saldo"
-            android:fontFamily="sans-serif-black"/>
+            android:fontFamily="sans-serif-black"
+            android:gravity="center_vertical|end"
+            android:paddingStart="5sp"
+            android:paddingEnd="30sp"
+            android:text="@string/saldo"
+            android:textSize="18sp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -45,8 +45,9 @@
         android:id="@+id/editTextSaldoInicial"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="0.00"
         android:inputType="numberSigned|numberDecimal"
-        android:textColor="@color/textWhite"/>
+        android:textColor="@color/textWhite" />
 
     <Button
         android:id="@+id/salva_conta_btn"
